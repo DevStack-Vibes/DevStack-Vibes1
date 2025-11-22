@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Previous CSS remains exactly the same */
+    /* Your complete CSS styles remain exactly the same */
     :root{
       --bg: #0b0f1c;
       --bg-2: #071122;
@@ -847,7 +847,6 @@
   </style>
 </head>
 <body>
-  <!-- HTML structure remains exactly the same -->
   <header>
     <div class="brand">
       <img src="logo.png" alt="DevStack-Vibes logo" onerror="this.style.display='none'">
@@ -900,7 +899,7 @@
           <h3 style="text-align: center; margin-bottom: 25px;">Join DevStack-Vibes</h3>
           <div class="form-group">
             <label for="signup-name">Full Name</label>
-            <input type="text" id="signup-name" class="form-control" placeholder="NameJ">
+            <input type="text" id="signup-name" class="form-control" placeholder="Name">
           </div>
           <div class="form-group">
             <label for="signup-email">Email</label>
@@ -924,15 +923,483 @@
       </div>
     </section>
 
-    <!-- Rest of the HTML remains exactly the same -->
-    <!-- User Dashboard, Admin Panel, Edit Task Modal, Main Website Content -->
-    
+    <!-- User Dashboard -->
+    <section id="dashboard" class="container dashboard">
+      <div class="dashboard-header">
+        <div>
+          <h2>Welcome, <span id="user-name">User</span></h2>
+          <p id="user-role" style="color: var(--muted); margin: 0;">Role</p>
+        </div>
+        <button class="btn secondary" onclick="logout()">Logout</button>
+      </div>
+      
+      <div class="dashboard-nav">
+        <a href="#" class="dashboard-nav-link active" data-section="tasks">My Tasks</a>
+        <a href="#" class="dashboard-nav-link" data-section="announcements">Announcements</a>
+        <a href="#" class="dashboard-nav-link" data-section="performance">Performance</a>
+        <a href="#" class="dashboard-nav-link" data-section="profile">Profile</a>
+      </div>
+      
+      <div class="dashboard-section active" id="tasks-section">
+        <h3 style="margin-bottom: 20px;">Assigned Tasks</h3>
+        <div id="tasks-container">
+          <!-- Tasks will be populated here -->
+        </div>
+      </div>
+      
+      <div class="dashboard-section" id="announcements-section">
+        <h3 style="margin-bottom: 20px;">Announcements</h3>
+        <div id="announcements-container">
+          <!-- Announcements will be populated here -->
+        </div>
+      </div>
+      
+      <div class="dashboard-section" id="performance-section">
+        <h3 style="margin-bottom: 20px;">Performance Analytics</h3>
+        <div class="performance-chart">
+          <div class="chart-placeholder">
+            Performance Chart - Tasks Completed vs Time
+          </div>
+        </div>
+        <div class="stats" style="margin-top: 20px;">
+          <div class="stat">
+            <h3 id="completed-tasks">0</h3>
+            <p>Tasks Completed</p>
+          </div>
+          <div class="stat">
+            <h3 id="pending-tasks">0</h3>
+            <p>Tasks Pending</p>
+          </div>
+          <div class="stat">
+            <h3 id="success-rate">0%</h3>
+            <p>Success Rate</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="dashboard-section" id="profile-section">
+        <h3 style="margin-bottom: 20px;">Profile Information</h3>
+        <div class="card">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="profile-name" class="form-control" value="">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="profile-email" class="form-control" value="" readonly>
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <input type="text" id="profile-role" class="form-control" value="" readonly>
+          </div>
+          <div class="form-group">
+            <label>Member Since</label>
+            <input type="text" id="profile-joined" class="form-control" value="" readonly>
+          </div>
+          <button class="btn" onclick="updateProfile()">Update Profile</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin-panel" class="container dashboard admin-panel">
+      <div class="dashboard-header">
+        <div>
+          <h2>Admin Dashboard</h2>
+          <p style="color: var(--muted); margin: 0;">Manage Users & Tasks</p>
+        </div>
+        <button class="btn secondary" onclick="logout()">Logout</button>
+      </div>
+      
+      <div class="dashboard-nav">
+        <a href="#" class="admin-nav-link active" data-section="users">Manage Users</a>
+        <a href="#" class="admin-nav-link" data-section="task-management">Task Management</a>
+        <a href="#" class="admin-nav-link" data-section="announcements-management">Announcements</a>
+        <a href="#" class="admin-nav-link" data-section="analytics">Analytics</a>
+      </div>
+      
+      <div class="dashboard-section active" id="users-section">
+        <h3 style="margin-bottom: 20px;">User Management</h3>
+        <div id="users-container">
+          <!-- Users will be populated here -->
+        </div>
+      </div>
+      
+      <div class="dashboard-section" id="task-management-section">
+        <h3 style="margin-bottom: 20px;">Task Management</h3>
+        <div class="task-form">
+          <h4 style="margin-top: 0;">Create New Task</h4>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="task-title">Task Title</label>
+              <input type="text" id="task-title" class="form-control" placeholder="Enter task title">
+            </div>
+            <div class="form-group">
+              <label for="task-deadline">Deadline</label>
+              <input type="date" id="task-deadline" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="task-description">Task Description</label>
+            <textarea id="task-description" class="form-control" rows="4" placeholder="Describe the task in detail"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="task-classroom-link">Google Classroom Link</label>
+            <input type="url" id="task-classroom-link" class="form-control" placeholder="https://classroom.google.com/c/ODMwNDA0ODc2NTcx?cjc=qsmnrq6d" value="https://classroom.google.com/c/ODMwNDA0ODc2NTcx?cjc=qsmnrq6d">
+          </div>
+          <button class="btn" onclick="createTask()">Assign to All Users</button>
+        </div>
+        
+        <h4 style="margin: 30px 0 20px;">Existing Tasks</h4>
+        <div id="admin-tasks-container">
+          <!-- Admin tasks will be populated here -->
+        </div>
+      </div>
+      
+      <div class="dashboard-section" id="announcements-management-section">
+        <h3 style="margin-bottom: 20px;">Announcement Management</h3>
+        <div class="announcement-form">
+          <h4 style="margin-top: 0;">Create New Announcement</h4>
+          <div class="form-group">
+            <label for="announcement-title">Announcement Title</label>
+            <input type="text" id="announcement-title" class="form-control" placeholder="Enter announcement title">
+          </div>
+          <div class="form-group">
+            <label for="announcement-description">Announcement Description</label>
+            <textarea id="announcement-description" class="form-control" rows="4" placeholder="Enter announcement details"></textarea>
+          </div>
+          <button class="btn" onclick="createAnnouncement()">Send Announcement</button>
+        </div>
+        
+        <h4 style="margin: 30px 0 20px;">Existing Announcements</h4>
+        <div id="admin-announcements-container">
+          <!-- Admin announcements will be populated here -->
+        </div>
+      </div>
+      
+      <div class="dashboard-section" id="analytics-section">
+        <h3 style="margin-bottom: 20px;">System Analytics</h3>
+        <div class="performance-chart">
+          <div class="chart-placeholder">
+            System Analytics - User Activity & Task Completion
+          </div>
+        </div>
+        <div class="stats" style="margin-top: 20px;">
+          <div class="stat">
+            <h3 id="total-users">0</h3>
+            <p>Total Users</p>
+          </div>
+          <div class="stat">
+            <h3 id="active-tasks">0</h3>
+            <p>Active Tasks</p>
+          </div>
+          <div class="stat">
+            <h3 id="completion-rate">0%</h3>
+            <p>Avg. Completion</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Edit Task Modal -->
+    <div id="editTaskModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit Task</h3>
+          <button class="close-modal" onclick="closeEditModal()">×</button>
+        </div>
+        <div class="form-group">
+          <label for="edit-task-title">Task Title</label>
+          <input type="text" id="edit-task-title" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="edit-task-description">Task Description</label>
+          <textarea id="edit-task-description" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-task-deadline">Deadline</label>
+            <input type="date" id="edit-task-deadline" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="edit-task-status">Status</label>
+            <select id="edit-task-status" class="form-control">
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="edit-task-classroom-link">Google Classroom Link</label>
+          <input type="url" id="edit-task-classroom-link" class="form-control">
+        </div>
+        <div style="display: flex; gap: 15px; margin-top: 25px;">
+          <button class="btn" onclick="updateTask()">Update Task</button>
+          <button class="btn secondary" onclick="closeEditModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Website Content (Hidden when logged in) -->
+    <div id="main-content">
+      <!-- Main website content remains the same -->
+      <section class="hero container" aria-labelledby="hero-heading">
+        <div class="floating-elements">
+          <div class="floating-element" style="width: 80px; height: 80px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+          <div class="floating-element" style="width: 120px; height: 120px; top: 60%; left: 80%; animation-delay: 5s;"></div>
+          <div class="floating-element" style="width: 60px; height: 60px; top: 80%; left: 10%; animation-delay: 10s;"></div>
+          <div class="floating-element" style="width: 100px; height: 100px; top: 30%; left: 70%; animation-delay: 15s;"></div>
+        </div>
+        
+        <div class="hero-left fade-in">
+          <h2 id="hero-heading">We craft software that <span style="background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">empowers businesses</span></h2>
+          <div class="tagline">Innovate with every stack — web, desktop, mobile, and backend systems designed to scale.</div>
+          <p>
+            DevStack-Vibes is a forward-thinking software house delivering elegant, secure and scalable applications.
+            We combine modern engineering, design thinking and cloud-ready architecture to build products that solve real problems and scale with your business.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn" href="#portfolio">Explore Projects</a>
+            <a class="btn secondary" href="#" id="heroJoinUsBtn">Join Us</a>
+          </div>
+        </div>
+
+        <aside class="hero-right fade-in" aria-label="Highlights">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div>
+              <div style="font-weight:700; font-size: 1.1rem;">DevStack-Vibes</div>
+              <div style="color:var(--muted); font-size:0.9rem">Innovate with every stack</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:0.85rem; color:var(--muted)">Since</div>
+              <div style="font-weight:700">2024</div>
+            </div>
+          </div>
+
+          <div class="stats" style="margin-top:20px">
+            <div class="stat">
+              <h3>11+</h3>
+              <p>Projects</p>
+            </div>
+            <div class="stat">
+              <h3>5</h3>
+              <p>Services</p>
+            </div>
+            <div class="stat">
+              <h3>100%</h3>
+              <p>Client Focus</p>
+            </div>
+          </div>
+
+          <div style="margin-top:20px; display:flex; gap:12px; justify-content:space-between; align-items:center; flex-wrap: wrap;">
+            <a class="pill" href="https://github.com/DevStack-Vibes" target="_blank" rel="noopener">GitHub</a>
+            <a class="pill" href="https://www.youtube.com/@DevStack-Vibes" target="_blank" rel="noopener">YouTube</a>
+            <a class="pill" href="https://www.instagram.com/devstackvibes/" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" class="container">
+        <div class="floating-elements">
+          <div class="floating-element" style="width: 60px; height: 60px; top: 10%; left: 90%; animation-delay: 2s;"></div>
+          <div class="floating-element" style="width: 80px; height: 80px; top: 80%; left: 5%; animation-delay: 8s;"></div>
+        </div>
+        
+        <h3 class="section-title">About Us</h3>
+        <p class="lead fade-in">
+          DevStack-Vibes is a results-driven software house focused on creating meaningful digital products.
+          We design and build web, desktop and mobile applications with robust backends and clean user interfaces.
+          Our approach emphasizes maintainable code, fast performance, and measurable business outcomes so your project keeps growing.
+        </p>
+      </section>
+
+      <section id="services" class="container">
+        <div class="floating-elements">
+          <div class="floating-element" style="width: 70px; height: 70px; top: 20%; left: 10%; animation-delay: 4s;"></div>
+          <div class="floating-element" style="width: 90px; height: 90px; top: 70%; left: 85%; animation-delay: 12s;"></div>
+        </div>
+        
+        <h3 class="section-title">Services</h3>
+        <p class="lead">From prototype to production — we deliver full-stack services tailored to your needs.</p>
+
+        <div class="grid" style="margin-top:28px">
+          <div class="card fade-in">
+            <div class="service-title">
+              <div class="service-logo" aria-hidden="true">
+                  <img src="https://i.ibb.co/6P01x9L/web.png" alt="Web Development Icon">
+              </div>
+              <h4>Web Development</h4>
+              </div>
+            <p class="service-desc">Responsive websites and web apps with attention to performance, SEO and accessibility. Modern stacks & PWA readiness.</p>
+          </div>
+
+          <div class="card fade-in">
+            <div class="service-title">
+              <div class="service-logo" aria-hidden="true">
+                  <img src="https://i.ibb.co/P48g80b/desktop.png" alt="Desktop App Icon">
+              </div>
+              <h4>Desktop Application Development</h4>
+              </div>
+            <p class="service-desc">Electron, Qt or native apps with strong UX and system integration for performance-critical desktop tools.</p>
+          </div>
+
+          <div class="card fade-in">
+            <div class="service-title">
+              <div class="service-logo" aria-hidden="true">
+                  <img src="https://i.ibb.co/308jN1d/mobile.png" alt="Mobile App Icon">
+              </div>
+              <h4>Android / iOS App Development</h4>
+              </div>
+            <p class="service-desc">Native and cross-platform apps with offline support, performant UI and smooth animations.</p>
+          </div>
+
+          <div class="card fade-in">
+            <div class="service-title">
+              <div class="service-logo" aria-hidden="true">
+                  <img src="https://i.ibb.co/1nCqV9Q/frontend.png" alt="Frontend Icon">
+              </div>
+              <h4>Front-End Development</h4>
+              </div>
+            <p class="service-desc">Polished interfaces, accessibility-first designs, and animation-aware components for great user experiences.</p>
+          </div>
+
+          <div class="card fade-in">
+            <div class="service-title">
+              <div class="service-logo" aria-hidden="true">
+                  <img src="https://i.ibb.co/JzG7hYg/server.png" alt="Backend/Server Icon">
+              </div>
+              <h4>Back-End Development</h4>
+              </div>
+            <p class="service-desc">Robust APIs, database design, cloud deployments and secure authentication. Scalable and maintainable architectures.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="portfolio" class="container">
+        <div class="floating-elements">
+          <div class="floating-element" style="width: 80px; height: 80px; top: 10%; left: 5%; animation-delay: 6s;"></div>
+          <div class="floating-element" style="width: 60px; height: 60px; top: 80%; left: 90%; animation-delay: 14s;"></div>
+        </div>
+        
+        <h3 class="section-title">Selected Projects</h3>
+        <p class="lead">A snapshot of our work — click any card to open the project on GitHub.</p>
+
+        <div class="grid" style="margin-top:28px">
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/CodeAlpha_Cloud-Based-Bus-Pass-System')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Cloud Based Bus Pass System</div>
+                <div class="project-desc">Cloud-hosted bus pass management for institutions and transit operators.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/CodeAlpha_Data-Redundancy-Removal-System')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Data Redundancy Removal System</div>
+                <div class="project-desc">Tools & algorithms to detect and remove redundant data across datasets.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/CodeAlpha_Stock-Portfolio-Tracker')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Stock Portfolio Tracker</div>
+                <div class="project-desc">Track investments, history & alerts for portfolio performance.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/CodeAlpha_Hangman-Game')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Hangman Game</div>
+                <div class="project-desc">A simple, well-crafted educational game demonstrating clean logic and UI.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/Calculator')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Calculator</div>
+                <div class="project-desc">Lightweight calculator showing UI design and functionality.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/FaceAuth')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Face Authentication</div>
+                <div class="project-desc">Face recognition module for secure authentication and access control.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/Clinic-Management-System')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Clinic / Gym / Super-Market Systems</div>
+                <div class="project-desc">Domain-specific management systems for operational efficiency.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/Maison-Sole')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Shoe Store Website</div>
+                <div class="project-desc">E-commerce demo with product listings and cart flows.</div>
+              </div>
+              </div>
+          </div>
+
+          <div class="card project-card fade-in" onclick="openProject('https://github.com/DevStack-Vibes/CodeAlpha_Detecting-Data-Leaks-Using-SQL-Injection')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <div>
+                <div class="project-title">Data Leaks Detector (SQLi)</div>
+                <div class="project-desc">Tools to detect SQL injection vulnerabilities and possible leak points.</div>
+              </div>
+              </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="container">
+        <div class="floating-elements">
+          <div class="floating-element" style="width: 70px; height: 70px; top: 20%; left: 85%; animation-delay: 10s;"></div>
+          <div class="floating-element" style="width: 90px; height: 90px; top: 70%; left: 10%; animation-delay: 16s;"></div>
+        </div>
+        
+        <h3 class="section-title">Contact Us</h3>
+        <p class="lead">Have a project or idea? Click below to send us a message directly on **WhatsApp** for an immediate response!</p>
+
+        <div class="contact-container">
+          <a href="https://wa.me/923339070125?text=Hello%20DevStack-Vibes,%20I%20have%20a%20project%20I%20would%20like%20to%20discuss."
+            class="btn fade-in"
+            target="_blank"
+            rel="noopener"
+            style="font-size:1.1rem; padding:16px 28px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" style="margin-right:10px"><path d="M12 2C6.48 2 2 6.48 2 12c0 3.12 1.34 5.92 3.49 7.84L4 22l2.16-1.48c.59.32 1.25.55 1.94.69C9.13 21.6 10.51 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm3.8 13.9c-.2-.1-.82-.41-1.19-.49-.37-.09-.64-.07-.90.37-.25.42-.51.48-.77.51-.27.03-.51.15-1.01-.31-.5-.47-2.11-1.3-2.73-2.31-.62-1.01-.13-1.57.29-1.99.37-.36.33-.67.17-.89-.16-.22-.37-.5-.56-.74-.2-.24-.4-.2-.56-.47-.16-.27-.85-2.26-1.16-3.09-.3-.83-.62-.7-.85-.71-.24-.01-.5-.01-.77.01-.27.02-.7.09-1.07.49-.37.4-.71.88-1.07 1.31-.36.43-.72.82-.72 1.49 0 .67.92 2.14 2.11 3.33 1.18 1.18 2.27 1.55 2.65 1.74.37.19.58.15.82-.09.24-.24 1.05-1.12 1.29-1.35.24-.24.47-.2.64-.13.20.09 1.25.59 1.48.71.24.12.40.18.45.28.05.10-.19.33-.36.52-.16.19-.38.29-.58.48z"/></svg>
+            Chat with us on WhatsApp
+          </a>
+
+          <div class="note fade-in" style="margin-top:14px; text-align: center;">
+            Or, if you prefer email, reach us directly at <strong>devstackvibes1@gmail.com</strong>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <footer class="footer">
     <div>© <span id="year"></span> DevStack-Vibes — Innovate with every stack</div>
     <div class="socials">
-      <!-- Social links remain the same -->
+      <!-- Your social links -->
     </div>
   </footer>
 
@@ -942,9 +1409,9 @@
     /********************************************
       * Online Storage with JSONBin.io
       ********************************************/
-    // JSONBin.io configuration
-    const JSONBIN_BIN_ID = '69213cf2ae596e708f68cdf8 '; // This is a public bin ID
-    const JSONBIN_MASTER_KEY = '$2a$10$17gcoGYTp7Wk//N7o4KBQOJY90DS97rZ/SQlxFqUsmqSpHzjLh1uG'; // This is a sample key
+    // JSONBin.io configuration - USING YOUR ACTUAL CREDENTIALS
+    const JSONBIN_BIN_ID = '69213cf2ae596e708f68cdf8';
+    const JSONBIN_MASTER_KEY = '$2a$10$17gcoGYTp7Wk//N7o4KBQOJY90DS97rZ/SQlxFqUsmqSpHzjLh1uG';
     const JSONBIN_API_URL = 'https://api.jsonbin.io/v3/b';
     
     // Global data variables
@@ -972,6 +1439,7 @@
     // Fetch data from JSONBin.io
     async function fetchData() {
       try {
+        console.log('Fetching data from JSONBin...');
         const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}/latest`, {
           method: 'GET',
           headers: {
@@ -981,10 +1449,11 @@
         });
         
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error(`Failed to fetch data: ${response.status}`);
         }
         
         const data = await response.json();
+        console.log('Data fetched successfully:', data.record);
         return data.record || {
           users: [],
           tasks: [],
@@ -1006,6 +1475,7 @@
     // Update data on JSONBin.io
     async function updateData(newData) {
       try {
+        console.log('Updating data on JSONBin...', newData);
         const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}`, {
           method: 'PUT',
           headers: {
@@ -1019,10 +1489,11 @@
         });
         
         if (!response.ok) {
-          throw new Error('Failed to update data');
+          throw new Error(`Failed to update data: ${response.status}`);
         }
         
         const result = await response.json();
+        console.log('Data updated successfully:', result.record);
         return result.record;
       } catch (error) {
         console.error('Error updating data:', error);
@@ -1045,7 +1516,7 @@
         localStorage.setItem('devstack_tasks', JSON.stringify(tasks));
         localStorage.setItem('devstack_announcements', JSON.stringify(announcements));
         
-        console.log('Data synced successfully');
+        console.log('Data synced successfully. Users:', users.length, 'Tasks:', tasks.length, 'Announcements:', announcements.length);
         return onlineData;
       } catch (error) {
         console.error('Error syncing data:', error);
@@ -1219,7 +1690,7 @@
       document.getElementById('user-name').textContent = currentUser.name;
       document.getElementById('user-role').textContent = currentUser.role;
       
-      // Load user tasks
+      // Load user data
       loadUserTasks();
       loadUserAnnouncements();
       loadUserPerformance();
