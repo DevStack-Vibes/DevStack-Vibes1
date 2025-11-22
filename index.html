@@ -888,7 +888,7 @@
 
       <div class="topbar-actions">
         <button id="themeToggle" class="icon-btn" title="Toggle light / dark">🌙</button>
-        <a class="btn" href="#contact">Get a Quote</a>
+        <a class="btn" href="#" id="joinUsBtn">Join Us</a>
       </div>
     </div>
   </header>
@@ -1182,7 +1182,7 @@
 
           <div class="hero-cta">
             <a class="btn" href="#portfolio">Explore Projects</a>
-            <a class="btn secondary" href="#contact">Talk to Us</a>
+            <a class="btn secondary" href="#" id="heroJoinUsBtn">Join Us</a>
           </div>
         </div>
 
@@ -2182,6 +2182,18 @@
       showAuth();
     });
     
+    // Join Us button click handler in header
+    document.getElementById('joinUsBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      showAuth();
+    });
+    
+    // Join Us button click handler in hero section
+    document.getElementById('heroJoinUsBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      showAuth();
+    });
+    
     // Close modal when clicking outside
     document.getElementById('editTaskModal').addEventListener('click', function(e) {
       if (e.target === this) {
@@ -2191,5 +2203,3 @@
   </script>
 </body>
 </html>
-
-
